@@ -4,15 +4,14 @@
 #' specified Slack channel.
 #'
 #' @param channels list of channels to post image to
-#' @param ... other arguments passed into png device
-#' @param api_token the slack.com full API token (chr)
+#' @param bot_user_oauth_token the Slack full bot user OAuth token (chr)
 #' @param file prefix for filenames (defaults to \code{plot})
 #' @return \code{httr} response object from \code{POST} call
 #' @seealso \code{\link{slackrSetup}}, \code{\link{save.slackr}}, \code{\link{slackrUpload}}
 #' @author Konrad Karczewski [ctb], Bob Rudis [aut]
-#' @note You can pass in \code{add_user=TRUE} as part of the \code{...} parameters and the Slack API
+#' @note You can pass in \code{as_user=TRUE} as part of the \code{...} parameters and the Slack API
 #'       will post the message as your logged-in user account (this will override anything set in
-#'       \code{username})
+#'       \code{username}).
 #' @references \url{https://github.com/hrbrmstr/slackr/pull/12/files}
 #' @rdname dev_slackr
 #' @examples
@@ -29,8 +28,8 @@
 #' dev_slackr("@@jayjacobs")
 #' }
 #' @export
-dev_slackr <- function(channels=Sys.getenv("SLACK_CHANNEL"), ...,
-                       api_token=Sys.getenv("SLACK_API_TOKEN"),
+dev_slackr <- function(channels=Sys.getenv("SLACK_CHANNEL"),
+                       bot_user_oauth_token=Sys.getenv("SLACK_BOT_USER_OAUTH_TOKEN"),
                        file="plot") {
 
   loc <- Sys.getlocale('LC_CTYPE')
@@ -38,13 +37,13 @@ dev_slackr <- function(channels=Sys.getenv("SLACK_CHANNEL"), ...,
   on.exit(Sys.setlocale("LC_CTYPE", loc))
 
   ftmp <- tempfile(file, fileext=".png")
-  dev.copy(png, file=ftmp, ...)
+  dev.copy(png, file=ftmp)
   dev.off()
 
-  modchan <- slackrChTrans(channels)
+  modchan <- slackrChTrans(channels, bot_user_oauth_token)
 
   httr::POST(url="https://slack.com/api/files.upload",
              httr::add_headers(`Content-Type`="multipart/form-data"),
-             body=list( file=upload_file(ftmp), token=api_token, channels=modchan))
+             body=list( file=upload_file(ftmp), token=bot_user_oauth_token, channels=modchan))
 
 }

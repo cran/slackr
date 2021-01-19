@@ -9,10 +9,10 @@
 #'  Prepend direct messages with an @@
 #' @param username what user should the bot be named as (chr)
 #' @param icon_emoji what emoji to use (chr) \code{""} will mean use the default
-#' @param api_token your full slack.com API token
+#' @param bot_user_oauth_token your full Slack bot user OAuth token
 #' @return \code{httr} response object (invislbly)
 #' @author Quinn Weber [aut], Bob Rudis [ctb]
-#' @note You can pass in \code{add_user=TRUE} as part of the \code{...} parameters and the Slack API
+#' @note You can pass in \code{as_user=TRUE} as part of the \code{...} parameters and the Slack API
 #'       will post the message as your logged-in user account (this will override anything set in
 #'       \code{username})
 #' @references \url{https://github.com/hrbrmstr/slackr/pull/11}
@@ -30,13 +30,13 @@ text_slackr <- function(text,
                         channel=Sys.getenv("SLACK_CHANNEL"),
                         username=Sys.getenv("SLACK_USERNAME"),
                         icon_emoji=Sys.getenv("SLACK_ICON_EMOJI"),
-                        api_token=Sys.getenv("SLACK_API_TOKEN")) {
+                        bot_user_oauth_token=Sys.getenv("SLACK_BOT_USER_OAUTH_TOKEN")) {
 
   if ( length(text) > 1 ) { stop("text must be a vector of length one") }
   if ( !is.character(channel) | length(channel) > 1 ) { stop("channel must be a character vector of length one") }
   if ( !is.logical(preformatted) | length(preformatted) > 1 ) { stop("preformatted must be a logical vector of length one") }
   if ( !is.character(username) | length(username) > 1 ) { stop("username must be a character vector of length one") }
-  if ( !is.character(api_token) | length(api_token) > 1 ) { stop("api_token must be a character vector of length one") }
+  if ( !is.character(bot_user_oauth_token) | length(bot_user_oauth_token) > 1 ) { stop("api_token must be a character vector of length one") }
 
   text <- as.character(text)
 
@@ -50,7 +50,7 @@ text_slackr <- function(text,
   on.exit(Sys.setlocale("LC_CTYPE", loc))
 
   resp <- POST(url="https://slack.com/api/chat.postMessage",
-               body=list(token=api_token,
+               body=list(token=bot_user_oauth_token,
                          channel=channel,
                          username=username,
                          icon_emoji=icon_emoji,

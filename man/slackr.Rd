@@ -4,13 +4,16 @@
 \alias{slackr}
 \title{Output R expressions to a Slack channel/user}
 \usage{
-slackr(..., channel = Sys.getenv("SLACK_CHANNEL"),
+slackr(
+  ...,
+  channel = Sys.getenv("SLACK_CHANNEL"),
   username = Sys.getenv("SLACK_USERNAME"),
   icon_emoji = Sys.getenv("SLACK_ICON_EMOJI"),
-  api_token = Sys.getenv("SLACK_API_TOKEN"))
+  bot_user_oauth_token = Sys.getenv("SLACK_BOT_USER_OAUTH_TOKEN")
+)
 }
 \arguments{
-\item{...}{expressions to be sent to Slack.com}
+\item{...}{expressions to be sent to Slack}
 
 \item{channel}{which channel to post the message to (chr)}
 
@@ -18,7 +21,7 @@ slackr(..., channel = Sys.getenv("SLACK_CHANNEL"),
 
 \item{icon_emoji}{what emoji to use (chr) \code{""} will mean use the default}
 
-\item{api_token}{your full slack.com API token}
+\item{bot_user_oauth_token}{Slack bot user OAuth token}
 }
 \description{
 Takes an \code{expr}, evaluates it and sends the output to a Slack
@@ -26,16 +29,18 @@ chat destination. Useful for logging, messaging on long compute tasks or
 general information sharing.
 }
 \details{
-By default, everyting but \code{expr} will be looked for in a "\code{SLACK_}"
+By default, everything but \code{expr} will be looked for in a "\code{SLACK_}"
 environment variable. You can override or just specify these values directly instead,
 but it's probably better to call \code{\link{slackr_setup}} first.
 }
 \note{
 You need a \url{https://www.slack.com} account and will also need to
       setup an API token \url{https://api.slack.com/}
-      Also, you can pass in \code{add_user=TRUE} as part of the \code{...}
+      Also, you can pass in \code{as_user=TRUE}, the default, as part of the \code{...}
       parameters and the Slack API will post the message as your logged-in
-      user account (this will override anything set in \code{username})
+      user account (this will override anything set in \code{username}).
+      Passing \code{as_user=FALSE}, results in the Slack API posting the
+      message as set in \code{username}
 }
 \examples{
 \dontrun{
@@ -47,4 +52,3 @@ slackr("iris info", head(iris), str(iris))
 \code{\link{slackr_setup}}, \code{\link{slackr_bot}}, \code{\link{dev_slackr}},
          \code{\link{save_slackr}}, \code{\link{slackr_upload}}
 }
-
