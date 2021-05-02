@@ -9,7 +9,7 @@ with_pagination(fun, extract)
 \arguments{
 \item{fun}{A function that calls the slack API}
 
-\item{extract}{The name of the element to extract from the API reponse}
+\item{extract}{The name of the element to extract from the API response}
 }
 \value{
 A \code{tibble}

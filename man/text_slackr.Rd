@@ -32,7 +32,7 @@ Prepend direct messages with an @}
 \item{bot_user_oauth_token}{your full Slack bot user OAuth token}
 }
 \value{
-\code{httr} response object (invislbly)
+\code{httr} response object (invisibly)
 }
 \description{
 Sends basic text to a slack channel. Calls the chat.postMessage method on the Slack Web API.
@@ -46,7 +46,7 @@ will post the message as your logged-in user account (this will override anythin
 \examples{
 \dontrun{
 slackr_setup()
-text_slackr('hello world', as_user=TRUE)
+text_slackr("hello world", as_user = TRUE)
 }
 }
 \references{

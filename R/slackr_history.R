@@ -14,7 +14,7 @@
 #'   24 hours of history.
 #' @param posted_to_time Timestamp of the last post to consider (default:
 #'   current time)
-#' @param paginate If TRUE, uses the Slack API pagination mechanism, and will retrieve all history inside the timeframe.  Otherwise, makes a single call to teh API and retrieves a maximum of `message_count` messages
+#' @param paginate If TRUE, uses the Slack API pagination mechanism, and will retrieve all history inside the timeframe.  Otherwise, makes a single call to the API and retrieves a maximum of `message_count` messages
 #' @param message_count The number of messages to retrieve (only when `paginate = FALSE`)
 #' @export
 #'
@@ -22,19 +22,17 @@
 #' @references <https://api.slack.com/methods/conversations.history>
 #'
 slackr_history <- function(
-  channel = Sys.getenv("SLACK_CHANNEL"),
-  bot_user_oauth_token = Sys.getenv("SLACK_BOT_USER_OAUTH_TOKEN"),
-  posted_to_time = as.numeric(Sys.time()),
-  message_count,
-  duration,
-  posted_from_time,
-  paginate = FALSE
-) {
-
+                           channel = Sys.getenv("SLACK_CHANNEL"),
+                           bot_user_oauth_token = Sys.getenv("SLACK_BOT_USER_OAUTH_TOKEN"),
+                           posted_to_time = as.numeric(Sys.time()),
+                           message_count,
+                           duration,
+                           posted_from_time,
+                           paginate = FALSE) {
   if (!missing(duration) && !is.null(duration) && !missing(posted_from_time) && !is.null(posted_from_time)) {
     posted_from_time <- posted_to_time - duration * 3600
   } else {
-    posted_from_time <-  ""
+    posted_from_time <- ""
   }
 
   resp <-

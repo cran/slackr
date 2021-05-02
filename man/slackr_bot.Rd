@@ -30,7 +30,7 @@ chat destination via the webhook API. Useful for logging, messaging on long
 compute tasks or general information sharing.
 }
 \details{
-By default, everyting but \code{expr} will be looked for in a "\code{SLACK_}"
+By default, everything but \code{expr} will be looked for in a "\code{SLACK_}"
 environment variable. You can override or just specify these values directly
 instead, but it's probably better to call \code{\link[=slackr_setup]{slackr_setup()}} first.
 }
@@ -55,12 +55,12 @@ slackr_setup()
 slackr_bot("iris info", head(iris), str(iris))
 
 # or directly
-slackr_bot("Test message", username="slackr", channel="#random",
-  incoming_webhook_url="https://hooks.slack.com/services/XXXXX/XXXXX/XXXXX")
+slackr_bot("Test message",
+           incoming_webhook_url = "https://hooks.slack.com/services/XXXXX/XXXXX/XXXXX")
 }
 }
 \seealso{
-\code{\link[=slackrSetup]{slackrSetup()}}, \code{\link[=slackr]{slackr()}},
-\code{\link[=dev_slackr]{dev_slackr()}}, \code{\link[=save_slackr]{save_slackr()}},
+\code{\link[=slackr_setup]{slackr_setup()}}, \code{\link[=slackr]{slackr()}},
+\code{\link[=slackr_dev]{slackr_dev()}}, \code{\link[=slackr_save]{slackr_save()}},
 \code{\link[=slackr_upload]{slackr_upload()}}
 }

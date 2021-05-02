@@ -42,5 +42,5 @@ knitr::opts_chunk$set(
 #  lm.D9 <- slack_lm(weight ~ group)
 #  
 #  # clean up slack channel from examples
-#  delete_slackr(count = 6, channel = "#general")
+#  slackr_delete(count = 6, channel = "#general")
 
