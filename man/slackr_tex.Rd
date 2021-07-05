@@ -7,9 +7,10 @@
 slackr_tex(
   obj,
   channels = Sys.getenv("SLACK_CHANNEL"),
-  bot_user_oauth_token = Sys.getenv("SLACK_BOT_USER_OAUTH_TOKEN"),
+  token = Sys.getenv("SLACK_TOKEN"),
   ext = "png",
   path = NULL,
+  bot_user_oauth_token = Sys.getenv("SLACK_BOT_USER_OAUTH_TOKEN"),
   ...
 )
 }
@@ -18,11 +19,13 @@ slackr_tex(
 
 \item{channels}{list of channels to post image to}
 
-\item{bot_user_oauth_token}{the Slack full bot user OAuth token (chr)}
+\item{token}{A Slack token (either a user token or a bot user token)}
 
 \item{ext}{character, type of format to return, can be tex, pdf, or any image device, Default: 'png'}
 
 \item{path}{character, path to save tex_preview outputs, if NULL then tempdir is used, Default: NULL}
+
+\item{bot_user_oauth_token}{Deprecated. A Slack bot user OAuth token}
 
 \item{...}{other arguments passed to \code{\link[texPreview:tex_preview]{texPreview::tex_preview()}}, see Details}
 }
@@ -44,28 +47,8 @@ Also, you can pass in \code{add_user=TRUE} as part of the \code{...}
 parameters and the Slack API will post the message as your logged-in user
 account (this will override anything set in \code{username})
 }
-\examples{
-\dontrun{
-slackr_setup()
-obj <- xtable::xtable(mtcars)
-slackr_tex(obj,
-  print.xtable.opts = list(scalebox = getOption("xtable.scalebox", 0.8)))
-
-slackr_tex(obj,
-  ext = "pdf",
-  print.xtable.opts = list(scalebox = getOption("xtable.scalebox", 0.8)))
-
-slackr_tex(obj,
-  ext = "tex",
-  print.xtable.opts = list(scalebox = getOption("xtable.scalebox", 0.8)))
-
-slackr_tex(obj,
-  path = "testdir",
-  print.xtable.opts = list(scalebox = getOption("xtable.scalebox", 0.8)))
-}
-}
 \seealso{
-\code{\link[texPreview:tex_preview]{texPreview::tex_preview()}} \code{\link[xtable:print.xtable]{xtable::print.xtable()}}
+\code{\link[texPreview:tex_preview]{texPreview::tex_preview()}}
 }
 \author{
 Jonathan Sidi (aut)
