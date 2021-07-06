@@ -2,7 +2,7 @@ Type: Package
 Package: slackr
 Title: Send Messages, Images, R Objects and Files to 'Slack'
         Channels/Users
-Version: 2.4.0
+Version: 2.4.1
 Author: Bob Rudis [aut, cre], Jay Jacobs [ctb], David Severski [ctb],
     Quinn Weber [ctb], Konrad Karczewski [ctb], Shinya Uryu [ctb], Gregory
     Jefferis [ctb], Ed Niles [ctb], Rick Saporta [ctb], Jonathan Sidi
@@ -32,6 +32,6 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2021-07-05 18:58:29 UTC; matt
+Packaged: 2021-07-05 19:15:30 UTC; matt
 Repository: CRAN
-Date/Publication: 2021-07-05 19:20:01 UTC
+Date/Publication: 2021-07-06 08:10:02 UTC

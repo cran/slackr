@@ -1,10 +1,10 @@
-90b4900126a079ea99feebac0211bddc *DESCRIPTION
+10d69c3cba31de043c7627932a431f97 *DESCRIPTION
 b5c243c35e6b712ecfe223711365f790 *LICENSE
 fbea126d949437d18773cdff2b8dd6aa *NAMESPACE
 a8ee49a1c439399c5a06654d2b994b6f *NEWS.md
 c97502bed7c91082f564908bb3bb8a6c *R/call_slack_api.R
 86e5aa1a76075290311b0d47cf130ba6 *R/call_slack_internals.R
-037860a3e135c7d78a2f1e9dcbcb0559 *R/gg_slackr.R
+62e186994b3fdd3517bac19801b62a72 *R/gg_slackr.R
 31e3a07aea0740b08faded760bbfa2e7 *R/internals.R
 13613edad04164e541ebf0ec69d67b8e *R/register_onexit.R
 358b3faf8841efaa3ba2d440a0600a6e *R/slackr.R
@@ -34,7 +34,7 @@ b3e14a4c16dd534ff96a501aeebc54e1 *man/call_slack_api.Rd
 c1458f422eed488acd73be567d279c51 *man/convert_response_to_tibble.Rd
 660291f5bfb54bf21e04d191d1f41ad1 *man/create_config_file.Rd
 306d03a83a7503a539f3e823903f64f2 *man/figures/logo.png
-5bb0c68d6bee64df66127c4984de6a81 *man/ggslackr.Rd
+39cc407003e457052e699d6378e0aee0 *man/ggslackr.Rd
 8f49bee3778e02ae41b90cb22655c360 *man/register_onexit.Rd
 aa09b17725aeeee33d3c67ada53effab *man/slackr.Rd
 1204670115653960b6691dd4007dcbbb *man/slackr_bot.Rd
@@ -58,7 +58,7 @@ a60ccca7306def1046c65860b91ca6f5 *tests/testthat.R
 0daf7d92b763992f5b78ec3c42b48e1a *tests/testthat/Rplots.pdf
 4c49ea32192fe72c7e9dfafeeba09d86 *tests/testthat/test-connection.R
 678c7164c7dd2092511dddd2d472821f *tests/testthat/test-helpers.R
-fd26d18ef5be0a6409ea2ff9e008fc90 *tests/testthat/test-posting.R
+0461b63137f2da59b8a87466cbb65ab4 *tests/testthat/test-posting.R
 e132e71ab7654adde8f4f8e2269ae24e *tests/testthat/test-zconfig.R
 d44b5a2bd09eb38d5ead9adb0cf24c4b *vignettes/scoped-bot-setup.Rmd
 bf707a12850358a074bc561b0aab9a26 *vignettes/using-slackr.Rmd
