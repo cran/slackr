@@ -7,9 +7,9 @@ knitr::opts_chunk$set(
 ## ----demo2, eval=FALSE--------------------------------------------------------
 #  library(slackr)
 #  slackr_setup(
-#    channel="#channel",
-#    incoming_webhook_url="https://hooks.slack.com/services/XXXXX/XXXXX/XXXXX",
-#    bot_user_oauth_token='token'
+#    channel = "<< channel >>",
+#    incoming_webhook_url = "https://hooks.slack.com/services/<< hook >>",
+#    token = 'xoxb-<< token >>'
 #  )
 #  
 #  slackr(str(iris))

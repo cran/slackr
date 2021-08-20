@@ -166,13 +166,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol start="5" style="list-style-type: decimal">
 <li>Click “Install to Workspace”</li>
 <li>Select a channel (for webhook messages)</li>
-<li>Copy the Bot User OAuth Access Token</li>
+<li>Copy the Bot User (or User, depending on the type of app you want to use) OAuth Access Token</li>
 <li>Click “Incoming Webhooks” under “Features”</li>
 <li>Copy the Webhook URL</li>
 <li>Call</li>
 </ol>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slackr_setup</span>(<span class="at">channel =</span> <span class="st">&#39;#channel_with_webhook&#39;</span>, </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">bot_user_oauth_token =</span> <span class="st">&#39;your_token&#39;</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">token =</span> <span class="st">&#39;your_token&#39;</span>, </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">incoming_webhook_url =</span> <span class="st">&#39;your_webhook&#39;</span>)</span></code></pre></div>
 <p>You can also follow the config file setup directions below instead of passing the channel, token, and webhook directly.</p>
 <p>And that’s it! You should be able to post a message with <code>slackr(&#39;test message&#39;)</code></p>
@@ -185,9 +185,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Usage</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(slackr)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slackr_setup</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">channel=</span><span class="st">&quot;#channel&quot;</span>, </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">incoming_webhook_url=</span><span class="st">&quot;https://hooks.slack.com/services/XXXXX/XXXXX/XXXXX&quot;</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bot_user_oauth_token=</span><span class="st">&#39;token&#39;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">channel =</span> <span class="st">&quot;&lt;&lt; channel &gt;&gt;&quot;</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">incoming_webhook_url =</span> <span class="st">&quot;https://hooks.slack.com/services/&lt;&lt; hook &gt;&gt;&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">token =</span> <span class="st">&#39;xoxb-&lt;&lt; token &gt;&gt;&#39;</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">slackr</span>(<span class="fu">str</span>(iris))</span>
