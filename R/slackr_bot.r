@@ -51,60 +51,83 @@ slackr_bot <- function(..., incoming_webhook_url = Sys.getenv("SLACK_INCOMING_WE
     # get the arglist
     args <- substitute(list(...))[-1L]
 
-    modes_to_not_prex <- c("integer", "double", "complex", "raw", "logical", "character", "numeric")
+    # setup in-memory sink
+    rval <- NULL
+    fil <- textConnection("rval", "w", local = TRUE)
 
-    output <- lapply(
-      args,
-      function(.x) {
-        if (mode(.x) %in% modes_to_not_prex) {
-          .x
-        } else {
-          eval(call2(prex_r, .x, input = tempfile(), html_preview = FALSE, render = TRUE, style = FALSE))
+    sink(fil)
+    on.exit({
+      sink()
+      close(fil)
+    })
+
+    # where we'll need to eval expressions
+    pf <- parent.frame()
+
+    # how we'll eval expressions
+    evalVis <- function(expr) withVisible(eval(expr, pf))
+
+    # for each expression
+    for (i in seq_along(args)) {
+      expr <- args[[i]]
+
+      # do something, note all the newlines...Slack ``` needs them
+      tmp <- switch(mode(expr),
+                    # if it's actually an expression, iterate over it
+                    expression = {
+                      cat(sprintf("> %s\n", deparse(expr)))
+                      lapply(expr, evalVis)
+                    },
+                    # if it's a call or a name, eval, printing run output as if in console
+                    call = ,
+                    name = {
+                      cat(sprintf("> %s\n", deparse(expr)))
+                      list(evalVis(expr))
+                    },
+                    # if pretty much anything else (i.e. a bare value) just output it
+                    integer = ,
+                    double = ,
+                    complex = ,
+                    raw = ,
+                    logical = ,
+                    numeric = cat(sprintf("%s\n\n", as.character(expr))),
+                    character = cat(sprintf("%s\n\n", expr)),
+                    abort("mode of argument not handled at present by slackr")
+      )
+
+      for (item in tmp) {
+        if (item$visible) {
+          print(item$value, quote = FALSE)
+          cat("\n")
         }
       }
-    ) %>%
-      lapply(
-        function(.x) {
-          if (mode(.x) %in% modes_to_not_prex) {
-            .x
-          } else {
-            .x <- .x$result
-            .x[1] <- paste(">", .x[1])
-            paste(.x, collapse = "\n")
-          }
-        }
-      ) %>%
-      paste(collapse = "\n\n")
-
-    if ((Sys.getenv("SLACKR_ERRORS") != "IGNORE") && grepl("Error: ", output)) {
-      error_message <- sprintf(
-        "Found a (potential) error in `slackr_bot` call. Attempt at parsing the error:\n\n  %s\n\nWe tried to extract the call for you too:\n\n  %s\n\nNo message was posted.\nYou can ignore this warning and post the message with `Sys.setenv('SLACKR_ERRORS' = 'IGNORE')`.\n\n",
-        gsub("\n", "\n  ", output),
-        deparse(sys.call())
-      )
-
-      abort(
-        error_message
-      )
-    } else {
-      resp <- POST(
-        url = incoming_webhook_url,
-        encode = "form",
-        add_headers(
-          `Content-Type` = "application/json",
-          Accept = "*/*"
-        ),
-        body = list(
-          text = sprintf("```%s```", output)
-        ) %>%
-          toJSON(
-            pretty = TRUE,
-            auto_unbox = TRUE
-          )
-      )
-
-      stop_for_status(resp)
     }
+
+    on.exit()
+
+    sink()
+    close(fil)
+
+    output <- paste0(rval, collapse = "\n")
+
+    resp <- POST(
+      url = incoming_webhook_url,
+      encode = "form",
+      add_headers(
+        `Content-Type` = "application/x-www-form-urlencoded",
+        Accept = "*/*"
+      ),
+      body = URLencode(
+        sprintf(
+          "payload={\"text\": \"```%s```\"}",
+          output
+        )
+      )
+    )
+
+    stop_for_status(resp)
+
   }
+
   return(invisible(resp))
 }

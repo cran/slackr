@@ -1,8 +1,22 @@
 test_that("slackr_bot posts", {
   skip_on_cran()
 
-  res <- slackr_bot("testing slackr_bot")
-  expect_equal(res$status_code, 200)
+  res <- slackr_bot("testing slackr_bot")$content %>%
+    rawToChar()
+  expect_equal(res, "ok")
+})
+
+test_that("slackr_bot posts from inside a function", {
+  skip_on_cran()
+
+  x <- function() {
+    res <- slackr_bot("testing slackr_bot")$content %>%
+      rawToChar()
+
+    res
+  }
+
+  expect_equal(x(), "ok")
 })
 
 test_that("slackr posts", {
@@ -20,13 +34,60 @@ test_that("slackr posts", {
   expect_true(res$ok)
 })
 
-test_that("ggslackr posts", {
+test_that("slackr posts from inside a function", {
+  skip_on_cran()
+
+  x <- function() {
+    res <- slackr("testing slackr_bot")
+    res
+  }
+
+  expect_true(x()$ok)
+})
+
+test_that("ggslackr posts png by default", {
   skip_on_cran()
 
   res <- ggslackr(
     ggplot(data = iris, aes(x = Petal.Width, y = Petal.Length, color = Species)) +
       geom_point()
   )
+  expect_true(res$ok)
+})
+
+test_that("ggslackr posts pdfs", {
+  skip_on_cran()
+
+  res <- ggslackr(
+    ggplot(data = iris, aes(x = Petal.Width, y = Petal.Length, color = Species)) +
+      geom_point(),
+    device = "pdf"
+  )
+
+  expect_true(res$ok)
+})
+
+test_that("ggslackr posts tiffs", {
+  skip_on_cran()
+
+  res <- ggslackr(
+    ggplot(data = iris, aes(x = Petal.Width, y = Petal.Length, color = Species)) +
+      geom_point(),
+    device = "tiff"
+  )
+
+  expect_true(res$ok)
+})
+
+test_that("ggslackr posts svgs", {
+  skip_on_cran()
+
+  res <- ggslackr(
+    ggplot(data = iris, aes(x = Petal.Width, y = Petal.Length, color = Species)) +
+      geom_point(),
+    device = "svg"
+  )
+
   expect_true(res$ok)
 })
 
@@ -54,7 +115,7 @@ test_that("slackr_upload posts", {
   res <- slackr_upload(tf, channels = "#test")
   unlink(tf)
 
-  expect_equal(res$ok, TRUE)
+  expect_true(res$ok)
 })
 
 test_that("slackr can post to other channels", {
@@ -76,7 +137,7 @@ test_that("slackr_save works", {
   skip_on_cran()
 
   res <- slackr_save(iris)
-  expect_equal(res$ok, TRUE)
+  expect_true(res$ok)
 
   ## making sure saving works from inside of a function
   f <- function() {
@@ -85,7 +146,7 @@ test_that("slackr_save works", {
   }
 
   res <- f()
-  expect_equal(res$ok, TRUE)
+  expect_true(res$ok)
 })
 
 test_that("ggslackr works from in a function", {
@@ -99,5 +160,16 @@ test_that("ggslackr works from in a function", {
   }
 
   res <- f()
-  expect_equal(res$ok, TRUE)
+  expect_true(res$ok)
+})
+
+test_that("slackr_tex posts", {
+  skip_on_cran()
+  skip_on_ci()
+
+  res <- slackr_tex(
+    "$\\sum_{n=0}^{\\infty} \\frac{1}{n!}$"
+  )
+
+  expect_true(res$ok)
 })

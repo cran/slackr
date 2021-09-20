@@ -1,3 +1,17 @@
+# slackr 3.2.0
+
+* `slackr` and `slackr_bot` no longer rely on `reprex`, as `prex_r` would fail when an eval environment needed to be specified, but couldn't.
+
+# slackr 3.1.1
+
+* `slackr_ims` bug fix.
+* Using `usethis::use_pipe()` to import `{magrittr}`'s pipe.
+
+# slackr 3.1.0
+
+* Allows `ggslackr` to post multiple file types
+* Fixes a bug in `slackr` and `slackr_bot` that led to garbled output
+
 # slackr 3.0.1
 
 Fixes to a couple of bugs
