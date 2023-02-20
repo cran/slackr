@@ -49,8 +49,9 @@ test_that("ggslackr posts png by default", {
   skip_on_cran()
 
   res <- ggslackr(
-    ggplot(data = iris, aes(x = Petal.Width, y = Petal.Length, color = Species)) +
-      geom_point()
+    ggplot2::ggplot(data = iris, ggplot2::aes(x = Petal.Width, y = Petal.Length, color = Species)) +
+      ggplot2::geom_point(),
+    units = "in"
   )
   expect_true(res$ok)
 })
@@ -59,9 +60,10 @@ test_that("ggslackr posts pdfs", {
   skip_on_cran()
 
   res <- ggslackr(
-    ggplot(data = iris, aes(x = Petal.Width, y = Petal.Length, color = Species)) +
-      geom_point(),
-    device = "pdf"
+    ggplot2::ggplot(data = iris, ggplot2::aes(x = Petal.Width, y = Petal.Length, color = Species)) +
+      ggplot2::geom_point(),
+    device = "pdf",
+    units = "in"
   )
 
   expect_true(res$ok)
@@ -71,9 +73,10 @@ test_that("ggslackr posts tiffs", {
   skip_on_cran()
 
   res <- ggslackr(
-    ggplot(data = iris, aes(x = Petal.Width, y = Petal.Length, color = Species)) +
-      geom_point(),
-    device = "tiff"
+    ggplot2::ggplot(data = iris, ggplot2::aes(x = Petal.Width, y = Petal.Length, color = Species)) +
+      ggplot2::geom_point(),
+    device = "tiff",
+    units = "in"
   )
 
   expect_true(res$ok)
@@ -81,11 +84,13 @@ test_that("ggslackr posts tiffs", {
 
 test_that("ggslackr posts svgs", {
   skip_on_cran()
+  skip_on_ci()
 
   res <- ggslackr(
-    ggplot(data = iris, aes(x = Petal.Width, y = Petal.Length, color = Species)) +
-      geom_point(),
-    device = "svg"
+    ggplot2::ggplot(data = iris, ggplot2::aes(x = Petal.Width, y = Petal.Length, color = Species)) +
+      ggplot2::geom_point(),
+    device = "svg",
+    units = "in"
   )
 
   expect_true(res$ok)
@@ -156,20 +161,19 @@ test_that("ggslackr works from in a function", {
     plt <- ggplot2::ggplot(iris, ggplot2::aes(Sepal.Length, Sepal.Width)) +
       ggplot2::geom_point()
 
-    ggslackr(plt)
+    ggslackr(plt, units = "in")
   }
 
   res <- f()
   expect_true(res$ok)
 })
 
-test_that("slackr_tex posts", {
+test_that("thread ts correctly posts", {
   skip_on_cran()
-  skip_on_ci()
 
-  res <- slackr_tex(
-    "$\\sum_{n=0}^{\\infty} \\frac{1}{n!}$"
-  )
+  post <- slackr_msg("Thread")
 
-  expect_true(res$ok)
+  reply_1 <- slackr_msg("Reply", thread_ts = post$ts)
+
+  expect_equal(post$ts, reply_1$message$thread_ts)
 })

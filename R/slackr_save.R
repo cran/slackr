@@ -20,13 +20,15 @@
 #' slackr_setup()
 #' slackr_save(mtcars, channels = "#slackr", file = "mtcars")
 #' }
-slackr_save <- function(...,
-                        channels = Sys.getenv("SLACK_CHANNEL"),
-                        file = "slackr",
-                        token = Sys.getenv("SLACK_TOKEN"),
-                        initial_comment = NULL,
-                        title = NULL,
-                        thread_ts = NULL) {
+slackr_save <- function(
+  ...,
+  channels = Sys.getenv("SLACK_CHANNEL"),
+  file = "slackr",
+  token = Sys.getenv("SLACK_TOKEN"),
+  initial_comment = NULL,
+  title = NULL,
+  thread_ts = NULL
+) {
   if (channels == "") abort("No channels specified. Did you forget select which channels to post to with the 'channels' argument?")
 
   ftmp <- tempfile(file, fileext = ".Rdata")
@@ -37,7 +39,7 @@ slackr_save <- function(...,
   res <- files_upload(
     file = ftmp,
     channels = channels,
-    txt = initial_comment,
+    initial_comment = initial_comment,
     token = token,
     filename = sprintf("%s.Rdata", file),
     title = title,

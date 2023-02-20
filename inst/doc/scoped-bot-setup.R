@@ -9,19 +9,18 @@ knitr::opts_chunk$set(
 #  slackr_setup(
 #    channel = "<< channel >>",
 #    incoming_webhook_url = "https://hooks.slack.com/services/<< hook >>",
-#    token = 'xoxb-<< token >>'
+#    token = "xoxb-<< token >>"
 #  )
 #  
 #  slackr(str(iris))
 #  
 #  # send images
 #  library(ggplot2)
-#  qplot(mpg, wt, data=mtcars)
+#  qplot(mpg, wt, data = mtcars)
 #  slackr_dev("#results")
 #  
 #  barplot(VADeaths)
 #  slackr_dev("@jayjacobs")
 #  
-#  ggslackr(qplot(mpg, wt, data=mtcars))
-#  
+#  ggslackr(qplot(mpg, wt, data = mtcars))
 

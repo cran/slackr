@@ -24,18 +24,19 @@
 #'  [texPreview::tex_preview()]
 #' @author Jonathan Sidi (aut)
 #' @export
-slackr_tex <- function(obj,
-                       channels = Sys.getenv("SLACK_CHANNEL"),
-                       token = Sys.getenv("SLACK_TOKEN"),
-                       ext = "png",
-                       path = NULL,
-                       title = NULL,
-                       initial_comment = NULL,
-                       thread_ts = NULL,
-                       ...) {
+slackr_tex <- function(
+  obj,
+  channels = Sys.getenv("SLACK_CHANNEL"),
+  token = Sys.getenv("SLACK_TOKEN"),
+  ext = "png",
+  path = NULL,
+  title = NULL,
+  initial_comment = NULL,
+  thread_ts = NULL,
+  ...
+) {
 
-  # check if texPreview is installed, if not provide feedback
-  check_tex_pkg()
+  check_installed("texPreview")
 
   if (!is.null(path)) {
     td <- path
@@ -56,9 +57,9 @@ slackr_tex <- function(obj,
   fname <- file.path(
     td,
     paste0(
-      'slack.',
+      "slack.",
       ifelse(ext == "tex", "png", ext)
-      )
+    )
   )
 
   res <- files_upload(
@@ -74,26 +75,4 @@ slackr_tex <- function(obj,
   if (is.null(path)) unlink(td, recursive = TRUE)
 
   invisible(res)
-}
-
-
-
-#' check_tex_pkg
-#'
-#' Check if texPreview is intalled
-#' @description Install or load texPreview package,
-#'   inspired by the `parsnip` package
-#' @noRd
-#'
-check_tex_pkg <- function() {
-  is_installed <- try(
-    suppressPackageStartupMessages(
-      requireNamespace("texPreview", quietly = TRUE)
-    ),
-    silent = TRUE
-  )
-
-  if (!is_installed) {
-    abort("texPreview package is not installed, run ?slackr_tex and see Details.")
-  }
 }

@@ -9,7 +9,7 @@
 #' @keywords internal
 #' @noRd
 #' @references https://api.slack.com/methods/conversations.list
-list_channels <- function(token = Sys.getenv("SLACK_TOKEN"), types = "public_channel", exclude_archived = TRUE, ...) {
+list_channels <- function(token, types, exclude_archived, ...) {
   with_pagination(
     function(cursor) {
       call_slack_api(
@@ -33,7 +33,7 @@ list_channels <- function(token = Sys.getenv("SLACK_TOKEN"), types = "public_cha
 #' @keywords internal
 #' @noRd
 #' @references https://api.slack.com/methods/users.list
-list_users <- function(token = Sys.getenv("SLACK_TOKEN"), ...) {
+list_users <- function(token, ...) {
   with_pagination(
     function(cursor) {
       call_slack_api(
@@ -61,21 +61,22 @@ list_users <- function(token = Sys.getenv("SLACK_TOKEN"), ...) {
 #' @param token A Slack API token.
 #'
 #' @references https://api.slack.com/methods/chat.postMessage
-post_message <- function(txt,
-                         channel,
-                         emoji = "",
-                         username = Sys.getenv("SLACK_USERNAME"),
-                         token = Sys.getenv("SLACK_TOKEN"),
-                         ...) {
-  r <-
-    call_slack_api(
+post_message <- function(
+  txt,
+  channel,
+  emoji,
+  username,
+  token,
+  ...
+) {
+  r <- call_slack_api(
       "/api/chat.postMessage",
       .method = POST,
       token = token,
       body = list(
-        text       = txt,
-        channel    = channel,
-        username   = username,
+        text = txt,
+        channel = channel,
+        username = username,
         link_names = 1,
         icon_emoji = emoji,
         ...
@@ -104,27 +105,30 @@ post_message <- function(txt,
 #'
 #'
 #' @references https://api.slack.com/methods/files.upload
-files_upload <- function(file,
-                         channels,
-                         initial_comment = NULL,
-                         token = Sys.getenv("SLACK_TOKEN"),
-                         ...) {
+files_upload <- function(
+  file,
+  channels,
+  initial_comment,
+  token,
+  ...
+) {
   r <- call_slack_api(
     "/api/files.upload",
     .method = POST,
     token = token,
     body = list(
-      file            = upload_file(file),
+      file = upload_file(file),
       initial_comment = initial_comment,
-      channels        = paste(channels, collapse = ","),
+      channels = paste(channels, collapse = ","),
       ...
     )
   )
+
   invisible(content(r))
 }
 
 
-list_scopes <- function(token = Sys.getenv("SLACK_TOKEN")) {
+list_scopes <- function(token) {
   r <- call_slack_api(
     "/api/apps.permissions.scopes.list",
     .method = GET,
