@@ -1,7 +1,7 @@
-bb49a3120050692970fd5807fb8823ef *DESCRIPTION
+87e7a2be9f37fb4f3a133fe4a10845cd *DESCRIPTION
 b5c243c35e6b712ecfe223711365f790 *LICENSE
 15da68dcd2cd5d6a5ba142aee2beff2b *NAMESPACE
-8f2d907529aae441ac2d04c5de3593fb *NEWS.md
+8492c0e44bf019d58e6c0fae53ecb86b *NEWS.md
 ae44f30f17edd19187647f9a0ae00b6a *R/call_slack_api.R
 8b86a70ec6f77bd7fea7c93caa3455fb *R/call_slack_internals.R
 a417e2c39e0b79fe597d6ee581f64f84 *R/gg_slackr.R
@@ -13,7 +13,7 @@ a4e2674c997685ee0db41b30686ec409 *R/slackr_bot.r
 4c1de13243971ef17ce80678fd429bce *R/slackr_csv.R
 ba38b2c2908149c45592c39647c33c56 *R/slackr_delete.R
 6b9f248a75fdca67c106f3a171a251af *R/slackr_dev.R
-89cc4c92e572e93391e84f6025edeb40 *R/slackr_history.R
+4392b93e379188a98f8f95a533ecf707 *R/slackr_history.R
 814a2cd5ac1d09beecb7199a6b145942 *R/slackr_save.R
 db707f01ae7148d27b90ecb0a9cdd369 *R/slackr_setup.r
 dbe5fd32f50cd4775d05e1bca315e1a7 *R/slackr_tex.R
@@ -46,7 +46,7 @@ ae521ba5313abff1c2f3b0590ec47e1a *man/slackr_chtrans.Rd
 d5aa72b33d2b389711edc8bef1926e85 *man/slackr_csv.Rd
 7959ff38baff344d0d641c31b59f8bed *man/slackr_delete.Rd
 311d9302d50d7943035417a8d7310e04 *man/slackr_dev.Rd
-b9fb485017c59f5786ff1a120280a84e *man/slackr_history.Rd
+18f32e410f511f47a05a2d8fb1efb1ad *man/slackr_history.Rd
 658aebc8add35b573110c3da65f3102f *man/slackr_ims.Rd
 74c97cecd92cbabacac469a38dd23c85 *man/slackr_msg.Rd
 878a0261cc5373c65b8391ec5fc66e09 *man/slackr_save.Rd
@@ -61,9 +61,10 @@ a60ccca7306def1046c65860b91ca6f5 *tests/testthat.R
 0daf7d92b763992f5b78ec3c42b48e1a *tests/testthat/Rplots.pdf
 2033315e06011f6106f0bb59bc1a320b *tests/testthat/test-aaa-setup.R
 ff43db2f4c2059e0da36ccc578dff71e *tests/testthat/test-connection.R
-0b52cb527142b2f30e8c9412ea698a45 *tests/testthat/test-dev-tex.R
-6fdf95996d5184553f1e28ea2cee6a01 *tests/testthat/test-history.R
-99b4d4e33f210bc5fa3593b24a3ab64e *tests/testthat/test-internals.R
+7ce93108cd5d9253f3da91de29ebdf5e *tests/testthat/test-dev-tex.R
+e6b884882ab829a9c597983f1df9539d *tests/testthat/test-history.R
+fc6efb52c56745a08de9bbff544b8790 *tests/testthat/test-internals.R
+7c0a30dfe82fdc15e4c61f3080824003 *tests/testthat/test-onexit.R
 bfcc13c29ff97f0ab123a722cc26071e *tests/testthat/test-posting.R
 08c1d391d32cad08605636127a45a1c6 *tests/testthat/test-zzz-teardown.R
 7c89f7dd6001659d706e7c7769886531 *vignettes/scoped-bot-setup.Rmd
